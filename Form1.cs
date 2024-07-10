@@ -10,9 +10,8 @@ namespace pretty_animation
         int offSetY;
         Color spiralColor;
         Color backColor;
-        static readonly double goldenRatio = (Math.Sqrt(5) + 1) / 2;
-        List<Func<double, double, PointD>?> spirals = new();
-        SolidBrush spiralBrush;
+        readonly List<Func<double, double, PointD>?> spirals = new();
+        SolidBrush? spiralBrush;
         public Form1()
         {
             InitializeComponent();
@@ -45,7 +44,7 @@ namespace pretty_animation
         {
             spirals.Add(GetLogSpiral);
             spirals.Add(GetArchimedSpiral);
-            spirals.Add(GetGoldenSpiral);
+            spirals.Add(GetHyperSpiral);
         }
         //Получить координаты логарифмической спирали
         private PointD GetLogSpiral(double i, double j)
@@ -62,34 +61,34 @@ namespace pretty_animation
             double y = i * 50 * Math.Sin(i * j * 0.003) + offSetY;
             return new PointD(x, y);
         }
-        //Получить координаты золотой спирали
-        private PointD GetGoldenSpiral(double i, double j)
+        //Получить координаты гиперболической спирали
+        private PointD GetHyperSpiral(double i, double j)
         {
-            double x = Math.Pow(goldenRatio, i * j * 0.001 * 2 / Math.PI) * Math.Cos(i * j * 0.001) + offSetX;
-            double y = Math.Pow(goldenRatio, i * j * 0.001 * 2 / Math.PI) * Math.Sin(i * j * 0.001) + offSetY;
+            double x = 1/i * 50 * Math.Cos(i * j * 0.02) + offSetX;
+            double y = 1/i * 50 * Math.Sin(i * j * 0.02) + offSetY;
             return new PointD(x, y);
         }
-        
+
         //Проигрывание анимации
         private void MainTimer_Tick(object sender, EventArgs e)
         {
+            if (g == null || GetSpiralCoord == null || spiralBrush == null) throw new Exception("'g' or 'GetSpiralCoord' or 'spiralBrush' equal null");
+
             int max = 30;
-            
-            //if (comboBox1.SelectedIndex == 2) max = 6;
             double speed = trackBar1.Value;
-            int circleSize = trackBar2.Value;
-            if (g == null || GetSpiralCoord == null) throw new Exception("'g' or 'GetSpiralCoord' equal null");
+            int circleSize = trackBar2.Value;          
             g.Clear(backColor);
             j++;
             for (double i = 0; i < max; i += 0.01)
-            {               
-                g.FillEllipse(spiralBrush,
-                            (float)GetSpiralCoord(i, j * speed).X, (float)GetSpiralCoord(i, j * speed).Y, circleSize, circleSize);
-                
+            {
+                float x = (float)GetSpiralCoord(i, j * speed).X;
+                float y = (float)GetSpiralCoord(i, j * speed).Y;
+                if (x < pictureBox1.Width && x > 0 && y < pictureBox1.Height && y > 0)
+                {
+                    g.FillEllipse(spiralBrush, x, y, circleSize, circleSize);
+                }                
             }
-            
             pictureBox1.Image = bmp;
-            GC.Collect();
         }
 
         //Старт анимации
@@ -112,9 +111,10 @@ namespace pretty_animation
         //Кнопка изменения цвета спирали
         private void ChangeSpiralColorButton_Click(object sender, EventArgs e)
         {
+            if (spiralBrush == null) throw new Exception("'spiralBrush' equals null");
             colorDialog1.ShowDialog();
             button3.BackColor = colorDialog1.Color;
-            spiralColor = colorDialog1.Color;
+            spiralBrush.Color = colorDialog1.Color;
         }
         //Кнопка изменения цвета фона
         private void ChangeBackColorButton_Click(object sender, EventArgs e)
@@ -124,7 +124,7 @@ namespace pretty_animation
             backColor = colorDialog2.Color;
         }
         //При изменении выбранного элемента comboBox1
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(comboBox1.SelectedIndex <= spirals.Count - 1)
             {

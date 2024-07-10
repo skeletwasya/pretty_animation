@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("pretty_animation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7fd43db70aef2cb1d44da4301742247ac096ef2d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09c20472f9fb89a211ef1b8ce132f0c0f8c1b73e")]
 [assembly: System.Reflection.AssemblyProductAttribute("pretty_animation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("pretty_animation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

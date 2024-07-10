@@ -123,12 +123,12 @@
             // 
             // comboBox1
             // 
-            comboBox1.Items.AddRange(new object[] { "Логарифмическая", "Архимедова", "Золотая" });
+            comboBox1.Items.AddRange(new object[] { "Логарифмическая", "Архимедова", "Гиперболическая"});
             comboBox1.Location = new Point(792, 127);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(143, 23);
             comboBox1.TabIndex = 7;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
             // 
             // Form1
             // 
