@@ -14,3 +14,4 @@ E:\Vanya\programs\pretty_animation\obj\Debug\net8.0-windows\pretty_animation.pdb
 E:\Vanya\programs\pretty_animation\obj\Debug\net8.0-windows\pretty_animation.genruntimeconfig.cache
 E:\Vanya\programs\pretty_animation\obj\Debug\net8.0-windows\ref\pretty_animation.dll
 E:\Vanya\programs\pretty_animation\obj\Debug\net8.0-windows\pretty_animation.Form1.resources
+E:\Vanya\programs\pretty_animation\obj\Debug\net8.0-windows\pretty_animation.sourcelink.json
